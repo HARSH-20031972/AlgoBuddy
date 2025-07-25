@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AlgoBuddy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>AlgoBuddy</h1>
+    <p>Your Competitive Programming Companion</p>
+    <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
+  </header>
+
+  <main>
+    <section>
+      <h2>Choose a Category</h2>
+      <select id="categorySelector">
+        <option value="">--Select--</option>
+        <option value="linear">Linear Data Structures</option>
+        <option value="nonLinear">Non-Linear Data Structures</option>
+      </select>
+
+      <h3>Select Algorithm</h3>
+      <select id="algoSelector">
+        <option value="">--Select Algorithm--</option>
+      </select>
+
+      <pre id="templateOutput">// Algorithm template will appear here</pre>
+      <button id="copyBtn">📋 Copy to Clipboard</button>
+    </section>
+
+    <section>
+      <h2>Time Complexities (Cheat Sheet)</h2>
+      <ul>
+        <li><strong>Array Traversal:</strong> O(n)</li>
+        <li><strong>Stack Push/Pop:</strong> O(1)</li>
+        <li><strong>BFS/DFS:</strong> O(V + E)</li>
+        <li><strong>Heap Insert:</strong> O(log n)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Upcoming Contests (Live)</h2>
+      <ul id="contestList">
+        <li>Loading contests...</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 AlgoBuddy | Built by Harsh Vaibhav</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
