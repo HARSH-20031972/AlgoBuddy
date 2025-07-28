@@ -2,58 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AlgoBuddy</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlgoBuddy CP Toolkit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    h1 {
+      text-align: center;
+    }
+    select, pre, button, textarea {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 1em;
+      width: 90%;
+      max-width: 600px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    li {
+      margin: 10px 0;
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .dark-mode li {
+      background: #1e1e1e;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>AlgoBuddy</h1>
-    <p>Your Competitive Programming Companion</p>
-    <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
-  </header>
+  <h1>AlgoBuddy CP Toolkit</h1>
+  <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
 
-  <main>
-    <section>
-      <h2>Choose a Category</h2>
-      <select id="categorySelector">
-        <option value="">--Select--</option>
-        <option value="linear">Linear Data Structures</option>
-        <option value="nonLinear">Non-Linear Data Structures</option>
-      </select>
+  <h2>Upcoming Contests</h2>
+  <ul id="contestList"><li>Loading contests...</li></ul>
 
-      <h3>Select Algorithm</h3>
-      <select id="algoSelector">
-        <option value="">--Select Algorithm--</option>
-      </select>
+  <h2>Algorithm Templates</h2>
+  <select id="algoSelector">
+    <option value="">Select Algorithm</option>
+    <option value="binarySearch">Binary Search</option>
+    <option value="dfs">DFS</option>
+    <option value="bfs">BFS</option>
+  </select>
+  <pre id="templateOutput"></pre>
+  <button id="copyBtn">📋 Copy Code</button>
 
-      <pre id="templateOutput">// Algorithm template will appear here</pre>
-      <button id="copyBtn">📋 Copy to Clipboard</button>
-    </section>
+  <script>
+    const contestListEl = document.getElementById("contestList");
+    function loadContests() {
+      fetch("https://competeapi.vercel.app/contests/upcoming")
+        .then((res) => res.json())
+        .then((data) => {
+          contestListEl.innerHTML = "";
+          data.forEach((contest) => {
+            const startTime = new Date(contest.startTime).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+            const durationHrs = (contest.duration / 3600000).toFixed(1) + " hrs";
+            const rating = contest.rating ? `⭐ ${contest.rating}` : "";
 
-    <section>
-      <h2>Time Complexities (Cheat Sheet)</h2>
-      <ul>
-        <li><strong>Array Traversal:</strong> O(n)</li>
-        <li><strong>Stack Push/Pop:</strong> O(1)</li>
-        <li><strong>BFS/DFS:</strong> O(V + E)</li>
-        <li><strong>Heap Insert:</strong> O(log n)</li>
-      </ul>
-    </section>
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <a href="${contest.url}" target="_blank">
+                [${contest.site || contest.platform}] ${contest.title}
+              </a><br>
+              ⏰ ${startTime} IST | ⌛ ${durationHrs} ${rating}
+            `;
+            contestListEl.appendChild(li);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching contests:", error);
+          contestListEl.innerHTML = "<li>Failed to load contest data.</li>";
+        });
+    }
 
-    <section>
-      <h2>Upcoming Contests (Live)</h2>
-      <ul id="contestList">
-        <li>Loading contests...</li>
-      </ul>
-    </section>
-  </main>
+    const algoTemplates = {
+      binarySearch: `// Binary Search in C++\nint binarySearch(int arr[], int n, int key) {\n  int low = 0, high = n - 1;\n  while (low <= high) {\n    int mid = (low + high) / 2;\n    if (arr[mid] == key) return mid;\n    else if (arr[mid] < key) low = mid + 1;\n    else high = mid - 1;\n  }\n  return -1;\n}`,
+      dfs: `// DFS using Adjacency List\nvoid DFS(int node, vector<bool> &visited, vector<int> adj[]) {\n  visited[node] = true;\n  for (int child : adj[node]) {\n    if (!visited[child]) {\n      DFS(child, visited, adj);\n    }\n  }\n}`,
+      bfs: `// BFS using Queue\nvoid BFS(int start, vector<bool> &visited, vector<int> adj[]) {\n  queue<int> q;\n  q.push(start);\n  visited[start] = true;\n  while (!q.empty()) {\n    int node = q.front(); q.pop();\n    for (int neighbor : adj[node]) {\n      if (!visited[neighbor]) {\n        visited[neighbor] = true;\n        q.push(neighbor);\n      }\n    }\n  }\n}`
+    };
 
-  <footer>
-    <p>© 2025 AlgoBuddy | Built by Harsh Vaibhav</p>
-  </footer>
+    document.getElementById("algoSelector").addEventListener("change", function () {
+      const selected = this.value;
+      document.getElementById("templateOutput").textContent = algoTemplates[selected] || "";
+    });
 
-  <script src="script.js"></script>
+    document.getElementById("copyBtn").addEventListener("click", () => {
+      const code = document.getElementById("templateOutput").textContent;
+      navigator.clipboard.writeText(code).then(() => alert("✅ Code copied!"));
+    });
+
+    document.getElementById("jsSelector").addEventListener("change", function () {
+      const selected = this.value;
+      document.getElementById("jsOutput").textContent = jsSnippets[selected] || "";
+    });
+
+    document.getElementById("copyJsBtn").addEventListener("click", () => {
+      const code = document.getElementById("jsOutput").textContent;
+      navigator.clipboard.writeText(code).then(() => alert("✅ JS Code copied!"));
+    });
+
+    document.getElementById("darkModeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+
+    loadContests();
+  </script>
 </body>
 </html>
-
