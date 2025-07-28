@@ -9,5 +9,4 @@
 - 📋 Prebuilt code templates for commonly used algorithms and data structures
 - 📎 Copy to clipboard functionality for quick access
 - 🌙 Dark mode toggle for comfortable coding
-- 🧭 Live contest schedule integration (Upcoming feature)
-- 📱 Mobile responsive design (Ongoing optimization)
+- 🧭 Live contest schedule integration
