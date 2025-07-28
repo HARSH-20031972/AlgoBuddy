@@ -1,15 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9fc;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #2e86de;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+.template-section, .complexity-section {
+  margin-bottom: 30px;
+}
+
+select {
+  padding: 8px;
+  font-size: 16px;
+}
+
+pre {
+  background: #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  margin-top: 10px;
+}
+
+footer {
+  background: #2e86de;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  bottom: 0;
+}
+
 :root {
   --bg: #f4f8fb;
   --text: #333;
   --primary: #2e86de;
   --card: #ffffff;
 }
+
 body.dark {
   --bg: #1e1e2f;
   --text: #f5f5f5;
   --primary: #4287f5;
   --card: #2b2b3a;
 }
+
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg);
@@ -17,6 +64,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 header {
   background: var(--primary);
   color: white;
@@ -24,6 +72,7 @@ header {
   text-align: center;
   position: relative;
 }
+
 #darkModeToggle {
   position: absolute;
   top: 20px;
@@ -31,16 +80,19 @@ header {
   padding: 6px 10px;
   cursor: pointer;
 }
+
 main {
   max-width: 800px;
   margin: auto;
   padding: 20px;
 }
+
 select, button {
   padding: 10px;
   margin: 10px 0;
   font-size: 16px;
 }
+
 pre {
   background: var(--card);
   padding: 12px;
@@ -50,6 +102,7 @@ pre {
   min-height: 120px;
   overflow-x: auto;
 }
+
 ul {
   background: var(--card);
   padding: 15px;
@@ -57,6 +110,7 @@ ul {
   box-shadow: 0 0 4px rgba(0,0,0,0.05);
   list-style: none;
 }
+
 footer {
   background: var(--primary);
   color: white;
@@ -64,9 +118,13 @@ footer {
   padding: 10px;
   margin-top: 30px;
 }
+
 @media screen and (max-width: 600px) {
   pre {
     font-size: 14px;
   }
 }
+
+
+
 
